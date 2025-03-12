@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./QuestionApp.css";
 import questionsData from "./questions";
-import typeAImg from "../../public/images/typeA.png";
-import typeBImg from "../../public//images/typeB.png";
-import typeCImg from "../../public//images/typeC.png";
+import typeAImg from "../images/typeA.png";
+import typeBImg from "../images/typeB.png";
+import typeCImg from "../images/typeC.png";
 import recommendedResources from "./recommendations";
 import {
   Radar,
@@ -36,6 +36,7 @@ const QuestionApp = () => {
   const [categoryScores, setCategoryScores] = useState({});
   const [totalScore, setTotalScore] = useState(0);
   const [questionScores, setQuestionScores] = useState([]);
+  const totalQuestions = questionsData.length; // Example total number of questions
 
   const handleAnswer = (answerIndex) => {
     const question = questions[currentIndex];
@@ -89,9 +90,21 @@ const QuestionApp = () => {
     )[0];
     return recommendedResources[lowestCategory] || [];
   };
+  // Calculate progress percentage
+  const progress = ((currentIndex / totalQuestions) * 100).toFixed(0);
 
   return (
     <div className="quiz-container">
+      {/* Progress Bar During Quiz */}
+      <div className="progressbar">
+        <div
+          className="progressbar-fill"
+          style={{
+            width: `${progress}%`,
+          }}
+          data-progress={`${progress}%`}
+        ></div>
+      </div>
       {currentIndex < questions.length ? (
         <div className="quiz-section">
           <h2 className="question-text">{questions[currentIndex].text}</h2>
@@ -113,20 +126,15 @@ const QuestionApp = () => {
           <h3>Total Score: {totalScore}</h3>
           <h3>User Type: {determineUserType(totalScore)}</h3>
           <div>
-            <img
-              src={getImageForType()}
-              alt={`Type ${userType}`}
-              style={{ width: "auto", height: "100px" }}
-            />
+            <img src={getImageForType()} alt={`Type ${userType}`} />
           </div>
           {userType !== "A" && (
             <p style={{ color: "red", fontSize: "18px" }}>
               {getImprovementRecommendation()}
             </p>
           )}
-
           {userType !== "A" && (
-            <div style={{ marginTop: "20px" }}>
+            <div className="recommended-resources">
               <h3>Recommended Resources for Improvement</h3>
               <ul>
                 {getRecommendedResources().map((resource, index) => (
@@ -197,19 +205,7 @@ const QuestionApp = () => {
             />
           </RadarChart>
           <Link to="/">
-            <button
-              style={{
-                padding: "10px 20px",
-                fontSize: "18px",
-                backgroundColor: "#007bff",
-                color: "white",
-                border: "none",
-                borderRadius: "5px",
-                cursor: "pointer",
-              }}
-            >
-              Home Page
-            </button>
+            <button className="homebutton">Home Page</button>
           </Link>
         </div>
       )}
