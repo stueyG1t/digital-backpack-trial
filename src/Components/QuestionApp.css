@@ -143,3 +143,13 @@ li {
 .homebutton:hover {
   background-color: #dd9700;
 }
+
+.timer {
+  font-weight: bold;
+  color: red;
+  background-color: #ffd900;
+  padding: 10px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+}

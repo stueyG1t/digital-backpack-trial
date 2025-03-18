@@ -41,6 +41,27 @@ const questionsData = [
     lessCorrect: "Galileo",
     category: "Science",
   },
+  {
+    text: "1+1?",
+    answers: ["2", "3", "4", "5"],
+    correct: "2",
+    lessCorrect: "2",
+    category: "Math",
+  },
+  {
+    text: "2+2?",
+    answers: ["2", "3", "4", "5"],
+    correct: "4",
+    lessCorrect: "2",
+    category: "Math",
+  },
+  {
+    text: "1+4?",
+    answers: ["2", "3", "4", "5"],
+    correct: "5",
+    lessCorrect: "2",
+    category: "Math",
+  },
 ];
 
 export default questionsData;
