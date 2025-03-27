@@ -1,12 +1,11 @@
-// File: DomainPage.js
 import React, { useState, useMemo } from "react";
-import domainQuestions from "./domainQuestions";
-import DomainResult from "./DomainResult";
+import DSTQuestions from "./DSTQuestions";
+import DSTResult from "./DSTResult";
 
 const LikertOptions = [
-  { value: 1, label: "Strongly Disagree" },
-  { value: 2, label: "Disagree" },
-  { value: 3, label: "Neutral" },
+  { value: 1, label: "I Don't Understand the Question" },
+  { value: 2, label: "Strongly Disagree" },
+  { value: 3, label: "Disagree" },
   { value: 4, label: "Agree" },
   { value: 5, label: "Strongly Agree" },
 ];
@@ -20,26 +19,21 @@ const shuffleArray = (array) => {
   return copy;
 };
 
-const DomainPage = () => {
+const DSTPage = () => {
   const [responses, setResponses] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [showError, setShowError] = useState(false);
 
-  const domain = domainQuestions[currentIndex];
+  const domain = DSTQuestions[currentIndex];
 
   const questions = useMemo(() => {
-    const all = [];
-    domain.dimensions.forEach((dimension, dimIndex) => {
-      dimension.questions.forEach((question, qIndex) => {
-        all.push({
-          question,
-          key: `D${currentIndex}-Dim${dimIndex}-Q${qIndex}`,
-        });
-      });
-    });
+    const all = domain.questions.map((question, index) => ({
+      question,
+      key: `D${currentIndex}-Q${index}`,
+    }));
     return shuffleArray(all);
-  }, [currentIndex]);
+  }, [currentIndex, domain]);
 
   const handleChange = (questionKey, value) => {
     setResponses({ ...responses, [questionKey]: value });
@@ -57,7 +51,7 @@ const DomainPage = () => {
       return;
     }
 
-    if (currentIndex < domainQuestions.length - 1) {
+    if (currentIndex < DSTQuestions.length - 1) {
       setCurrentIndex(currentIndex + 1);
     } else {
       setSubmitted(true);
@@ -65,10 +59,10 @@ const DomainPage = () => {
   };
 
   if (submitted) {
-    return <DomainResult responses={responses} questions={domainQuestions} />;
+    return <DSTResult responses={responses} questions={DSTQuestions} />;
   }
 
-  const progress = ((currentIndex + 1) / domainQuestions.length) * 100;
+  const progress = ((currentIndex + 1) / DSTQuestions.length) * 100;
 
   return (
     <div className="max-w-3xl mx-auto p-6">
@@ -101,7 +95,7 @@ const DomainPage = () => {
             {LikertOptions.map((opt) => (
               <label
                 key={opt.value}
-                className={`flex flex-col items-center p-2 rounded-lg cursor-pointer transition-all duration-200 border w-full text-center
+                className={`flex flex-col items-center p-2 rounded-lg cursor-pointer transition-all duration-200 border w-full text-center justify-center
                   ${
                     responses[key] == opt.value
                       ? "bg-blue-500 text-white border-blue-600"
@@ -132,10 +126,10 @@ const DomainPage = () => {
         onClick={handleNext}
         className="bg-blue-600 text-black px-4 py-2 rounded mt-4 hover:bg-blue-700 w-full"
       >
-        {currentIndex < domainQuestions.length - 1 ? "Next" : "Submit"}
+        {currentIndex < DSTQuestions.length - 1 ? "Next" : "Submit"}
       </button>
     </div>
   );
 };
 
-export default DomainPage;
+export default DSTPage;

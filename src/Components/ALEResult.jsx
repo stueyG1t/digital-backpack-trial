@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Radar,
@@ -13,8 +13,9 @@ import {
 import typeA from "../images/typeA.png";
 import typeB from "../images/typeB.png";
 import typeC from "../images/typeC.png";
+import pipwerks from "pipwerks-scorm-api-wrapper";
 
-const DomainResult = ({ responses, questions }) => {
+const ALEResult = ({ responses, questions }) => {
   const radarData = [];
   let totalScore = 0;
   let totalPossible = 0;
@@ -65,16 +66,27 @@ const DomainResult = ({ responses, questions }) => {
     });
   });
   const scorePercent = (totalScore / totalPossible) * 100;
-  let userType = "Newbie";
+  let userType = "Explorer";
   let imageUrl = typeC;
 
-  if (scorePercent > 80) {
-    userType = "Savvy";
+  if (scorePercent > 90) {
+    userType = "Pioneer";
     imageUrl = typeA;
   } else if (scorePercent > 60) {
-    userType = "Confident";
+    userType = "Navigator";
     imageUrl = typeB;
   }
+
+  useEffect(() => {
+    console.log("Submitting SCORM score:", scorePercent.toFixed(1));
+    pipwerks.SCORM.init();
+    pipwerks.SCORM.set("cmi.core.score.raw", scorePercent.toFixed(1));
+    pipwerks.SCORM.set("cmi.core.score.max", "100");
+    pipwerks.SCORM.set("cmi.core.score.min", "0");
+    pipwerks.SCORM.set("cmi.core.lesson_status", "completed");
+    pipwerks.SCORM.save();
+    pipwerks.SCORM.quit();
+  }, [scorePercent]);
 
   return (
     <div className="max-w-5xl mx-auto p-6">
@@ -158,4 +170,4 @@ const DomainResult = ({ responses, questions }) => {
   );
 };
 
-export default DomainResult;
+export default ALEResult;
