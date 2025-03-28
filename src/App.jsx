@@ -1,13 +1,15 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import HomePage from "../src/Components/HomePage";
-import QuestionApp from "../src/Components/quizApp"; // Import your quiz page
+import HomePage from "./Components/HomePage";
+import ALEPage from "./Components/ALEPage";
+import DSTPage from "./Components/DSTPage";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/quiz" element={<QuestionApp />} />
+      <Route path="/aletool" element={<ALEPage />} />
+      <Route path="/dsttool" element={<DSTPage />} />
     </Routes>
   );
 }
