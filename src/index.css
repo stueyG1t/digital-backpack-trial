@@ -17,7 +17,7 @@
 
 /* Global dark mode styles */
 body {
-  @apply bg-white text-black dark:bg-gray-900 dark:text-white;
+  @apply bg-white text-black dark:text-white dark:bg-slate-950;
 }
 
 a {

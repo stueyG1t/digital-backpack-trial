@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 export default function HomePage() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 text-center p-6">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-1000 text-center p-6">
       <h1 className="text-3xl font-bold mb-4">
         Welcome to the University Digital Framework Self-assessment Tool
       </h1>
-      <p className="text-lg text-gray-700 dark:text-white mb-8">
+      <p className="text-lg text-gray-700 dark:text-gray-900 mb-8">
         Test your knowledge and see how well you perform!
       </p>
       <div className="flex justify-center gap-4 mt-10 flex-wrap">

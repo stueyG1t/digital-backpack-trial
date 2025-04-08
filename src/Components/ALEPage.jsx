@@ -77,7 +77,7 @@ const ALEPage = () => {
           className="bg-blue-600 h-6 rounded-full transition-all duration-500 ease-in-out"
           style={{ width: `${progress}%` }}
         ></div>
-        <span className="absolute inset-0 flex items-center justify-center text-white text-sm font-medium">
+        <span className="absolute inset-0 flex items-center justify-center text-white dark:text-slate-950 text-sm font-medium">
           {progress}%
         </span>
       </div>
@@ -93,7 +93,7 @@ const ALEPage = () => {
       {questions.map(({ question, key }) => (
         <div
           key={key}
-          className="mb-4 p-4 border rounded-lg bg-gray-50 shadow-md"
+          className="mb-4 p-4 border rounded-lg bg-gray-50 dark:bg-slate-700 shadow-md"
         >
           <p className="mb-2 font-medium">{question}</p>
           <div className="flex justify-between space-x-2">
@@ -104,7 +104,7 @@ const ALEPage = () => {
                   ${
                     responses[key] == opt.value
                       ? "bg-blue-500 text-white border-blue-600"
-                      : "bg-white text-gray-700 dark:text-white border-gray-300 hover:bg-gray-100"
+                      : "bg-white text-gray-700 dark:text-white dark:bg-slate-800 border-gray-300 hover:bg-gray-100"
                   }`}
               >
                 <input
