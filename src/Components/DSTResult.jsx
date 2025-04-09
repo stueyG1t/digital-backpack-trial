@@ -132,7 +132,7 @@ const DSTResult = ({ responses, questions }) => {
         <h3 className="text-xl font-semibold mb-2">Domain Breakdown</h3>
         <ul className="space-y-2">
           {radarData.map((score, idx) => (
-            <li key={idx} className="p-3 bg-gray-100 rounded border">
+            <li key={idx} className="p-3 bg-gray-100 dark:bg-gray-900 rounded border">
               <span className="font-medium">{score.domain}:</span>
               {score.score.toFixed(1)}%
             </li>
